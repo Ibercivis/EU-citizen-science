@@ -1,0 +1,15 @@
+<li style="margin-left:3em" {% if active_link == "overview" %}class="active"{% endif %}><a href="{% url 'overview' %}">Overview</a></li>
+<li style="margin-left:3em" {% if active_link == "projects" %}class="active"{% endif %}><a href="{% url 'projects' %}">Projects</a></li>
+<li style="margin-left:3em" {% if active_link == "documents" %}class="active"{% endif %}><a href="{% url 'documents' %}">Documents</a></li>
+
+<li style="margin-left:3em" {% if active_link == "courses" %}class="active"{% endif %}><a href="https://moodle.org/?lang=en" target="_blank">Courses</a></li>
+<li style="margin-left:3em" {% if active_link == "forum" %}class="active"{% endif %}><a href="http://eu-citizen.science/" target="_blank">Forum</a></li>
+<li style="margin-left:3em" {% if active_link == "about" %}class="active"{% endif %}><a href="{% url 'about' %}">About</a></li>
+<li style="margin-left:3em" class="dropdown">
+    <a class="dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" >Dropdown</a>
+    <ul class="dropdown-menu">
+      <a class="dropdown-item" href="{% url 'tests' %}">Tests</a>
+      <a class="dropdown-item" href="{% url 'testing' %}">Testing</a>
+      <a class="dropdown-item" href="#">Something else here</a>
+    </ul>
+</li>

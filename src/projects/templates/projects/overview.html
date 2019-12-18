@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}{{ block.super }}Projects{% endblock %}
+
+{% block navbar-left %}
+  {% include "_navbar.html" with active_link="projects" %}
+{% endblock %}
+
+
+<!-- Benefits of the Django application -->
+{% block container %}
+
+{% include "_sidebar.html" %}
+
+    <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+    </br></br>
+
+      <!-- / .main-navbar -->
+      <div class="main-content-container container-fluid px-4">
+          <!-- Page Header -->
+          <div class="page-header row no-gutters py-4">
+            <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+              <span class="text-uppercase page-subtitle">Dashboard</span>
+              <h3 class="page-title">Overview</h3>
+            </div>
+          </div>
+
+
+        <div class="row">
+          <div class="col-lg col-md-6 col-sm-6 mb-4">
+          </div>
+          <div class="col-lg col-md-6 col-sm-6 mb-4">
+            <div class="stats-small stats-small--1 card card-small">
+              <div class="card-body p-0 d-flex">
+                <div class="d-flex flex-column m-auto">
+                  <div class="stats-small__data text-center">
+                    <span class="stats-small__label text-uppercase">Projects</span>
+                    <h6 class="stats-small__value count my-3">{{ projects_list|length }}</h6>
+                  </div>          
+                </div>
+                <canvas height="120" class="blog-overview-stats-small-1"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg col-md-6 col-sm-6 mb-4">
+            <div class="stats-small stats-small--1 card card-small">
+              <div class="card-body p-0 d-flex">
+                <div class="d-flex flex-column m-auto">
+                  <div class="stats-small__data text-center">
+                    <span class="stats-small__label text-uppercase">Comments</span>
+                    <h6 class="stats-small__value count my-3">{{comments | length}}</h6>
+                  </div>
+                </div>
+                <canvas height="120" class="blog-overview-stats-small-3"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg col-md-6 col-sm-6 mb-4">
+            <div class="stats-small stats-small--1 card card-small">
+              <div class="card-body p-0 d-flex">
+                <div class="d-flex flex-column m-auto">
+                  <div class="stats-small__data text-center">
+                    <span class="stats-small__label text-uppercase">Users</span>
+                    <h6 class="stats-small__value count my-3">{{users | length}}</h6>
+                  </div>        
+                </div>
+                <canvas height="120" class="blog-overview-stats-small-4"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg col-md-6 col-sm-6 mb-4">
+          </div>
+        </div>
+
+
+            
+        <div class="row">
+            <div class="col">
+              <div id="cardlist" class="card card-small mb-4">
+                <div class="card-header border-bottom">
+                  <h6 class="m-0">Project list</h6>
+                </div>
+                <div class="card-body p-0 pb-3 text-center">
+                  <table class="table mb-0">
+                    <thead class="bg-light">
+                      <tr>
+                          <th>#</th>
+                          <th>Name</th>
+                          <th>URL</th>
+                          <th>Start Date</th>
+                          <th>End Date</th>
+                          <th>Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody  align="center">
+                        {% for project in projects %}
+                        <tr>
+                          <td>{{ project.id }}</td>  
+                          <td>{{ project.name }}</td>
+                          <td><a href="{{ project.url }}">{{ project.url }}</a></td>
+                          <td>{{ project.start_date | date:"d/m/Y"}}</td>
+                          <td>{{ project.end_date | date:"d/m/Y"}}</td>
+                          <td >                
+                              <button type="submit" value={{project.id}} class="btn btn-danger"
+                                  onclick="location.href='{% url 'deleteProject' project.id %}'" 
+                                  name='deleteProject'>Delete <span class="fas fa-trash-alt"></span>
+                              </button>
+                                      
+                          </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                  </table>
+
+
+                  <br/><br/>
+                  {% if projects.has_other_pages %}
+                  <ul class="pagination" style="margin-left:3em">
+<!--                     {% if projects.has_previous %}
+                    <a href="?page={{ projects.previous_page_number }}"><li class="btn mb-4 btn-light">&laquo;</li></a>
+                    {% else %}
+                      <li class="disabled btn mb-4 btn-light"><span>&laquo;</span></li>
+                    {% endif %} -->
+                    {% for i in projects.paginator.page_range %}
+                      {% if projects.number == i %}
+                        <li class="active btn btn-info mb-4"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                      {% else %}
+                      <a href="?page={{ i }}"><li class="btn mb-4 btn-light">{{ i }}</li></a>
+                      {% endif %}
+                    {% endfor %}
+<!--                     {% if projects.has_next %}
+                    <a href="?page={{ projects.next_page_number }}"><li  class="btn mb-4 btn-light">&raquo;</li></a>
+                    {% else %}
+                      <li  class="disabled btn mb-4 btn-light"><span>&raquo;</span></li>
+                    {% endif %} -->
+                  </ul>
+                {% endif %}
+      
+                <span>
+                      Page {{ projects.number }} of {{ projects.paginator.num_pages }}.
+                </span>
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+              
+
+
+
+        </div>
+    </main>
+
+{% endblock container %}
+
+{% block scripts %}
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script> -->
+<!-- <script src="static/scripts/extras.1.1.0.min.js"></script>
+<script src="static/scripts/shards-dashboards.1.1.0.min.js"></script> -->
+
+{% endblock scripts %}

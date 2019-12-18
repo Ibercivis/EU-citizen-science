@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+<link rel="stylesheet" href="https://anijs.github.io/lib/anicollection/anicollection.css" />
+
+
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}{{ block.super }}Projects{% endblock %}
+
+{% block navbar-left %}
+  {% include "_navbar.html" with active_link="projects" %}
+{% endblock %}
+
+
+
+{% block container %}
+
+
+</br></br></br></br></br>
+
+
+
+<div class="container">
+        Tests </br></br>
+    
+    
+    <!-- Upload file -->
+    <div class="col-3"></div>
+    <div class="col-7">
+        <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupFileAddon01">Requirements file</span>
+            </div>
+            <div class="custom-file">
+            <input type="file" (change)="onFileChange($event)" class="custom-file-input" id="file"
+                aria-describedby="inputGroupFileAddon01" #fileInput formControlName="file" accept=".txt">
+            <label class="custom-file-label" for="inputGroupFile01">
+            Upload a file
+            </label>
+            </div>
+            <div *ngIf="filename">
+            <button type="button" class="btn btn-light" (click)="clearFile()">Clear file</button>
+            <button *ngIf="contentFile" type="submit" class="btn btn-success">Process file</button>
+            </div>
+        </div>
+        </div>        
+    </div>
+    <!-- Upload file -->
+    
+
+    <!--Carrusel-->
+    <div class="col-8">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="https://ciencia-ciudadana.es/wp-content/uploads/2019/06/fotonoticia_20150428140802_640.jpg" alt="First slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="https://ciencia-ciudadana.es/wp-content/uploads/2019/03/1319551_1.jpg" alt="Second slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="https://ciencia-ciudadana.es/wp-content/uploads/2018/10/fresas-300x300.jpg" alt="Third slide">
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+    <!--Carrusel-->
+    
+
+    
+</div>
+
+{% endblock container %}
+
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.3.2/bootbox.min.js"></script>
+
+
+
+{% endblock scripts %}

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}{{ block.super }}Projects{% endblock %}
+
+{% block navbar-left %}
+  {% include "_navbar.html" with active_link="projects" %}
+{% endblock %}
+
+
+{% block messages %}
+{% if messages %}
+{% for message in messages %}
+<div class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+  <div class="alert alert-{{ message.tags }}">
+    <a class="close" data-dismiss="alert">×</a>
+    {{ message|safe }}
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}
+
+<!-- Benefits of the Django application -->
+{% block container %}
+
+
+{% include "_sidebar.html" %}
+
+
+<main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+    </br></br></br></br>
+    <div class="main-content-container container-fluid px-4">
+        <h1>Documents</h1>
+        <br/>
+        <span>
+          <a href="{% url 'new_document' %}">
+            <i class="material-icons">add_circle</i> 
+            Add new document
+            </a>
+        </span>
+        <br/><br/>
+        <div class="row">
+            {% for doc in documents %}
+            <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+              <div class="card card-small card-post h-100">
+                <!--<div class="card-post__image" style="background-image: url('static/site/img/banner.JPG');"></div>-->
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <a class="text-fiord-blue" href="#">{{ doc.name }}</a>
+                  </h4>
+                  <p class="card-text"><i>Description:</i><br/>{{doc.description}}</p>
+                  <img class="card-img" src="{{doc.url}}" onerror="this.src='static/site/img/banner.JPG';" >
+                  <p class="card-text"><a href="{{doc.document.url}}" download target="_blank"> Download </a></p>
+                </div>
+                <div class="card-footer text-muted border-top py-3">
+                    <span>Author: {{doc.author}}</span>
+                    <span class="d-inline-block">Date
+                    <span class="text-fiord-blue">{{doc.datePublished | date:"d/m/Y"}}</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</main>
+
+{% endblock container %}
+
+{% block scripts %}
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script> -->
+<!-- <script src="static/scripts/extras.1.1.0.min.js"></script>
+<script src="static/scripts/shards-dashboards.1.1.0.min.js"></script> -->
+
+{% endblock scripts %}
